@@ -195,7 +195,7 @@ void setup() {
 
 //   // Connect the tank senders.
 //   // EDIT: To enable more tanks, uncomment the lines below.
-//   auto tank_a1_volume = ConnectTankSender(ads1115, 0, "fuel");
+   auto tank_a1_volume = ConnectTankSender(ads1115, 0, "fuel");
 //   // auto tank_a2_volume = ConnectTankSender(ads1115, 1, "A2");
 //   // auto tank_a3_volume = ConnectTankSender(ads1115, 2, "A3");
 //   // auto tank_a4_volume = ConnectTankSender(ads1115, 3, "A4");
@@ -208,11 +208,33 @@ void setup() {
 //   tank_a1_volume->connect_to(&(tank_a1_sender->tank_level_consumer_));
 // #endif  // ENABLE_NMEA2000_OUTPUT
 
-//   if (display_present) {
-//     // EDIT: Duplicate the lines below to make the display show all your tanks.
-//     tank_a1_volume->connect_to(new LambdaConsumer<float>(
-//         [](float value) { PrintValue(display, 2, "Tank A1", 100 * value); }));
-//   }
+  if (display_present) {
+    // EDIT: Duplicate the lines below to make the display show all your tanks.
+    tank_a1_volume->connect_to(new LambdaConsumer<float>(
+        [](float value) { PrintValue(display, 2, "Tank A1", 100 * value); }));
+  }
+
+  // Connect pressure senders
+  //auto pressure_a1 = ConnectPressureSender(ads1115, 0, "Oil Pressure", 300, 80, 0);
+  // auto pressure_a2 = ConnectPressureSender(ads1115, 1, "Oil Pressure", 300, 80, 0);
+  // auto pressure_a3 = ConnectPressureSender(ads1115, 2, "Oil Pressure", 300, 80, 0);
+  // auto pressure_a4 = ConnectPressureSender(ads1115, 3, "Oil Pressure", 300, 80, 0);
+
+// #ifdef ENABLE_NMEA2000_OUTPUT
+//   // Tank 1, instance 0. Capacity 200 liters.
+//   // EDIT: Make sure this matches your tank configuration above.
+//   N2kEngineParameterDynamicSender* pressure_a1_sender = new N2kEngineParameterDynamicSender(
+//       "/NMEA 2000/Oil Pressure", 0, N2kft_Fuel, 200, nmea2000);
+//   tank_a1_volume->connect_to(&(tank_a1_sender->tank_level_consumer_));
+// #endif  // ENABLE_NMEA2000_OUTPUT
+
+  // if (display_present) {
+  //   // EDIT: Duplicate the lines below to make the display show all your tanks.
+  //   pressure_a1->connect_to(new LambdaConsumer<float>(
+  //       [](float value) { PrintValue(display, 2, "Pressure A1", value); }));
+  // }
+
+
 
 //   ///////////////////////////////////////////////////////////////////
 //   // Digital alarm inputs
